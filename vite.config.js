@@ -5,7 +5,7 @@ export default defineConfig({
   build: {
     minify: false,
     manifest: false,
-    sourcemap: true,
+    sourcemap: false,
 
     rollupOptions: {
       output: {
