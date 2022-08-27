@@ -3,14 +3,9 @@
 */
 :root {
   font-family: 'Comic Mono', sans-serif;
-  /*font-size: 1.5rem;*/
+  font-size: 0.95rem;
   font-weight: 700;
   color: #F31CB6;
-  /*font-synthesis: none;*/
-  /*text-rendering: optimizeLegibility;*/
-  /*-webkit-font-smoothing: antialiased;*/
-  /*-moz-osx-font-smoothing: grayscale;*/
-  /*-webkit-text-size-adjust: 100%;*/
 }
 
 

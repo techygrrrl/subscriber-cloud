@@ -1,10 +1,13 @@
 import { sleep } from "./utils";
+import { broadcasterId, tauApiHost, tauToken } from "./environment";
 
-const tauApiHost = import.meta.env.VITE_TAU_HOST
-const tauToken = import.meta.env.VITE_TAU_TOKEN
-const broadcasterId = import.meta.env.VITE_BROADCASTER_ID
 
-export const makeGet = async (url) => {
+/**
+ * Makes a TAU network request with fetch
+ * @param url
+ * @returns {Promise<any>}
+ */
+const makeGet = async (url) => {
   const response = await window.fetch(url, {
     headers: {
       Authorization: `Token ${tauToken}`
@@ -17,15 +20,21 @@ export const makeGet = async (url) => {
   return await response.json()
 }
 
+
+/**
+ * Fetches all subscribers from Twitch via TAU.
+ * Staggers requests to 1 every 1.5 seconds.
+ * @returns {Promise<string[]>}
+ */
 export const getSubscribers = async () => {
   let cursor = ''
   const subscribers = []
   let shouldFetch = true
 
   do {
-    console.log(`Getting subscribers for cursor ${cursor} ...`)
+    console.log(`☁️ Getting subscribers for cursor ${cursor} ...`)
 
-    await sleep(2000)
+    await sleep(1500)
 
     // Make request
     const response = await makeGet(`${tauApiHost}/api/twitch/helix/subscriptions?broadcaster_id=${broadcasterId}&after=${cursor}`)

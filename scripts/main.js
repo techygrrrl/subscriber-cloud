@@ -1,38 +1,54 @@
 import '../style.css'
 
 import TagCloud from 'TagCloud'
-
 import { getSubscribers } from "./api";
-
-let tagCloud = null
+import { tauToken, tauWebSocketsHost } from "./environment";
 
 // stelioss9909: WPM Gangsta
 
 
 /**
- * @param values string[]
+ * Global tag cloud object.
+ *
+ * Usage:
+ *    .update(tagsList)
+ */
+let tagCloud = null
+
+
+/**
+ * Global subscribers list
+ * @type {string[]}
+ */
+let subscribers = []
+
+
+/**
+ * Initializes the Tag Cloud in the DOM.
+ * At this stage, it's an empty tag cloud.
  */
 const initTagCloud = () => {
   // Docs: https://www.npmjs.com/package/TagCloud
   const options = {
-    radius: 200,
+    radius: 230,
     maxSpeed: 'slow',
     initSpeed: 'slow',
     direction: 135, // degrees: right-bottom
     keep: true,
   }
 
-  console.log('Initializing tag cloud...')
+  console.log('☁️️ Initializing tag cloud...')
 
   tagCloud = TagCloud('#app', [], options)
 }
 
-initTagCloud()
-
-let subscribers = []
-
-const loadSubscriberTagCloud = () => {
-  console.log('Load all subscribers into the cloud...')
+/**
+ * Fetches paginated subscribers, staggered by 2 seconds per request.
+ * Adds all subscribers to the global subscribers array.
+ * Updates the tag cloud with all the subscribers.
+ */
+const fetchAllSubscribersAndLoadThemIntoTheTagCloud = () => {
+  console.log('☁️ Load all subscribers into the cloud...')
 
   getSubscribers('').then((fetchedSubscribers) => {
     subscribers = fetchedSubscribers
@@ -42,18 +58,19 @@ const loadSubscriberTagCloud = () => {
 }
 
 
-const tauWebSocketsHost = import.meta.env.VITE_TAU_WS_HOST
-const tauToken = import.meta.env.VITE_TAU_TOKEN
-
+/**
+ * Listens to subscribe events in real time.
+ */
 const subscribeToSubscribers = () => {
   const webSocketClient = new WebSocket(tauWebSocketsHost)
   webSocketClient.addEventListener('open', () => {
     const auth = JSON.stringify({ token: tauToken })
     webSocketClient.send(auth)
 
-    console.log('connected to websockets')
+    console.log('☁️ connected to websockets')
   })
 
+  // Intrus18: AFFILIATE ANNIVERSARY! GO TECHY GO!!!
   webSocketClient.addEventListener('message', (event) => {
     if (!tagCloud) return
 
@@ -67,12 +84,17 @@ const subscribeToSubscribers = () => {
         tagCloud.update(subscribers)
       }
     } catch (e) {
-      console.error('JSON parse error', e);
+      console.error('⛈ JSON parse error', e);
     }
   })
 }
 
-// Load all subscribers into the cloud
-// loadSubscriberTagCloud()
+
+/**
+ * 🚀 Run all the things!!!
+ */
+
+initTagCloud()
+fetchAllSubscribersAndLoadThemIntoTheTagCloud()
 subscribeToSubscribers()
 
