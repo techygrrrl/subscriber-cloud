@@ -6,9 +6,18 @@ export default defineConfig({
     minify: false,
     manifest: false,
     sourcemap: true,
+
+    rollupOptions: {
+      output: {
+        assetFileNames: '[name][extname]', // works for CSS!
+
+        // thank you joshwashywash!
+        entryFileNames: '[name].js',
+      }
+    }
   },
 
-  base: './',
+  base: '',
 
   server: {
     // https: true
