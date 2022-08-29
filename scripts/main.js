@@ -3,6 +3,7 @@ import '../style.css'
 import TagCloud from 'TagCloud'
 import { getSubscribers } from "./api";
 import { tauToken, tauWebSocketsHost } from "./environment";
+import shuffle from 'lodash/shuffle'
 
 // stelioss9909: WPM Gangsta
 
@@ -51,7 +52,7 @@ const fetchAllSubscribersAndLoadThemIntoTheTagCloud = () => {
   console.log('☁️ Load all subscribers into the cloud...')
 
   getSubscribers('').then((fetchedSubscribers) => {
-    subscribers = fetchedSubscribers
+    subscribers = shuffle(fetchedSubscribers)
 
     tagCloud?.update(subscribers)
   })

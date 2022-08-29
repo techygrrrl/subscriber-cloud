@@ -2,16 +2,58 @@
   ryan_the_rhg: Reminder: rewrite in 6 months with Elm Land
 */
 :root {
+  --purple: #7515EF;
+  --lavender: #B596F8;
+  --blue: #15AEEF;
+  --red: #EF1563;
+  --orange: #EF9815;
+  --yellow: #EBEF15;
+  --green: #15EFAE;
+  --pink: #EF15BF;
+  --dark-500: #463767;
+  --light-100: #E0DDE5;
+  --light-400: #807694;
+
   font-family: 'Comic Mono', sans-serif;
   font-size: 0.95rem;
   font-weight: 700;
-  color: #F31CB6;
+
+  /* color: var(--pink); */
 }
 
-
-
-
-
+.tagcloud--item:nth-child(11n + 1) {
+  color: var(--purple);
+}
+.tagcloud--item:nth-child(11n + 2) {
+  color: var(--lavender);
+}
+.tagcloud--item:nth-child(11n + 3) {
+  color: var(--blue);
+}
+.tagcloud--item:nth-child(11n + 4) {
+  color: var(--red);
+}
+.tagcloud--item:nth-child(11n + 5) {
+  color: var(--orange);
+}
+.tagcloud--item:nth-child(11n + 6) {
+  color: var(--yellow);
+}
+.tagcloud--item:nth-child(11n + 7) {
+  color: var(--green);
+}
+.tagcloud--item:nth-child(11n + 8) {
+  color: var(--pink);
+}
+.tagcloud--item:nth-child(11n + 9) {
+  color: var(--dark-500);
+}
+.tagcloud--item:nth-child(11n + 10) {
+  color: var(--light-100);
+}
+.tagcloud--item:nth-child(11n + 0) {
+  color: var(--light-400);
+}
 
 
 
