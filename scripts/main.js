@@ -31,9 +31,9 @@ const initTagCloud = () => {
   // Docs: https://www.npmjs.com/package/TagCloud
   const options = {
     radius: 230,
-    maxSpeed: 'slow',
-    initSpeed: 'slow',
-    direction: 135, // degrees: right-bottom
+    maxSpeed: 'fast',
+    initSpeed: 'fast',
+    direction: 85, // degrees: right-bottom = 135, horizontal = 90
     keep: true,
   }
 
