@@ -25,6 +25,8 @@ This will make a request against your locally-running Abstractrrr on port 9999.
 
 The provided broadcaster ID must be an authorized user of Abstractrrr.
 
+For example, your URL should look like this: https://techygrrrl-subscriber-cloud.pages.dev/?token=<token>&broadcaster_id=<id>
+
 
 ## Development
 
