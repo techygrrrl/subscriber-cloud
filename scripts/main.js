@@ -1,8 +1,7 @@
 import '../style.css'
 
 import TagCloud from 'TagCloud'
-import { getSubscribers } from "./api";
-import { tauToken, tauWebSocketsHost } from "./environment";
+import { getSubscribers, tokenFromURL } from "./api";
 import shuffle from 'lodash/shuffle'
 
 // stelioss9909: WPM Gangsta
@@ -63,9 +62,9 @@ const fetchAllSubscribersAndLoadThemIntoTheTagCloud = () => {
  * Listens to subscribe events in real time.
  */
 const subscribeToSubscribers = () => {
-  const webSocketClient = new WebSocket(tauWebSocketsHost)
+  const webSocketClient = new WebSocket('ws://127.0.0.1:9999/v1/subscribe')
   webSocketClient.addEventListener('open', () => {
-    const auth = JSON.stringify({ token: tauToken })
+    const auth = JSON.stringify({ token: tokenFromURL() })
     webSocketClient.send(auth)
 
     console.log('☁️ connected to websockets')
@@ -77,8 +76,9 @@ const subscribeToSubscribers = () => {
 
     try {
       const parsedData = JSON.parse(event.data)
-      if (parsedData.event_type === 'channel-subscribe') {
-        const newSubscriber = parsedData?.event_data?.user_name
+      console.log(parsedData)
+      if (parsedData.event_data.eventsub_type === 'channel.subscribe') {
+        const newSubscriber = parsedData?.event_data?.eventsub_data?.payload?.event?.user_name
 
         subscribers.push(newSubscriber)
 
@@ -98,4 +98,3 @@ const subscribeToSubscribers = () => {
 initTagCloud()
 fetchAllSubscribersAndLoadThemIntoTheTagCloud()
 subscribeToSubscribers()
-

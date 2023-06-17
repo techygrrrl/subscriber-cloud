@@ -1,6 +1,14 @@
 import { sleep } from "./utils";
-import { broadcasterId, tauApiHost, tauToken } from "./environment";
 
+export function tokenFromURL() {
+  const params = new URLSearchParams(location.search);
+  return params.get("token");
+}
+
+export function broadcasterIdFromURL() {
+  const params = new URLSearchParams(location.search);
+  return params.get("broadcaster_id");
+}
 
 /**
  * Makes a TAU network request with fetch
@@ -10,8 +18,10 @@ import { broadcasterId, tauApiHost, tauToken } from "./environment";
 const makeGet = async (url) => {
   const response = await window.fetch(url, {
     headers: {
-      Authorization: `Token ${tauToken}`
-    }
+      Authorization: `Bearer ${tokenFromURL()}`,
+      'X-User-ID': broadcasterIdFromURL(),
+    },
+    referrerPolicy: 'no-referrer',
   })
   if (!response.ok) {
     return Promise.reject()
@@ -37,7 +47,7 @@ export const getSubscribers = async () => {
     await sleep(1500)
 
     // Make request
-    const response = await makeGet(`${tauApiHost}/api/twitch/helix/subscriptions?broadcaster_id=${broadcasterId}&after=${cursor}`)
+    const response = await makeGet(`http://127.0.0.1:9999/v1/api/helix/subscriptions?broadcaster_id=${broadcasterIdFromURL()}&after=${cursor}`)
 
     // Add the subscribers to the list
     response.data.forEach(subscriber => {

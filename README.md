@@ -11,27 +11,19 @@ This is an animated word cloud that fetches subscribers from Twitch, loads them 
 
 ## Dependencies
 
-- [TAU - Twitch API Unifier](https://github.com/Team-TAU/tau)
+- [Abstractrrr](https://github.com/techygrrrl/abstractrrr)
 
 
 ## Setup
 
-You will need to set up the environment variables.
+You will need to pass the following query params in the URL:
 
-    cp .env.example .env.local
+- `token`: Abstractrrr API token
+- `broadcaster_id`: your user ID
 
-Fill out the environment variables.
+This will make a request against your locally-running Abstractrrr on port 9999.
 
-If you are running your TAU instance on port 8000 (the default configuration), it will look something like this:
-
-```yml
-VITE_TAU_HOST=http://localhost:8000
-VITE_TAU_WS_HOST=ws://127.0.0.1:8000/ws/twitch-events/
-VITE_TAU_TOKEN=
-VITE_BROADCASTER_ID=
-```
-
-The provided broadcaster ID must be the same as the owner of the TAU user.
+The provided broadcaster ID must be an authorized user of Abstractrrr.
 
 
 ## Development

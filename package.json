@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "rm -rf dist && vite build --base=/subscribers-cloud/",
-    "preview": "vite preview",
-    "deploy": "cp -r dist/* ../techydrrroid-ktor/src/main/resources/static/"
+    "build": "rm -rf dist && vite build",
+    "build:techydrrroid": "rm -rf dist && vite build --base=/subscribers-cloud/",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.184",
